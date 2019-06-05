@@ -75,6 +75,7 @@ public class Robot extends TimedRobot {
 		intake = new Intake();
 		pdp = new PowerDistributionPanel(0);	
 		oi = new OI();
+		drivetrain = new DriveTrain();
 
 		pdp.clearStickyFaults();
 
@@ -148,3 +149,4 @@ public class Robot extends TimedRobot {
 	public void log() {
 		Timer.delay(0.05);
 	}
+}	

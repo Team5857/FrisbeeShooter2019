@@ -1,4 +1,11 @@
-package frc.robot;
+/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
+
+package frc.robot.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -11,49 +18,42 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Intake extends Subsystem {
-	public SpeedController intake1;
-	public boolean intake1Active = false;
+  public SpeedController feeder, outtake;
+  public boolean feederActive, outtakeActive;
 
 	public Intake() {
-		intake1 = new WPI_TalonSRX(10); //bottom motor
+    feeder = new WPI_TalonSRX(15); 
+    outtake = new WPI_TalonSRX(0);
+    outtakeSlow = new WPI_TalonSRX(7);
+    feederActive = false;
+    outtakeActive = false;
 	}
-	
-	public void toggleIntakeSpin(Joystick secondaryStick){
-	 	intakeSpin.set(-secondaryStick.getRawAxis(5));
-	}
-	
-	// public void toggleIntakeSpin2(XboxController secondaryStick){
-	// 	intakeSpin.set(secondaryStick.getRawAxis(5));
-	// }
-	// public void toggleIntakeSpin1(double speed){
-	// 	intakeSpin.set(speed);
-	// }
 
 	public void toggleIntake(Joystick driveStick, Joystick secondaryStick) {
-		if(driveStick.getRawButtonPressed(5)) {
+		if(driveStick.getRawButtonPressed(1)) {
 			//Intake 
-			if(intake1Active) {
-				intake1Active = false;
+			if(feederActive) {
+				feederActive = false;
 			} else {
-				intake1Active = true;
+				feederActive = true;
 			}
-			if(intake1Active){
-				intake1.set(.3);
+			if(feederActive){
+				feeder.set(.3);
 			} else{
-				intake1.set(0);
+				feeder.set(0);
 			}
 		}
-		if(driveStick.getRawButtonPressed(6)) {
+		if(driveStick.getRawButtonPressed(0)) {
 			//Outtake
-			if(intake1Active) {
-				intake1Active = false;
+			if(outtakeActive) {
+				outtakeActive = false;
 			} else {
-				intake1Active = true;
+				outtakeActive = true;
 			}
-			if(intake1Active){
-				intake1.set(-1);
+			if(outtakeActive){
+				outtake.set(.3);
 			} else{
-				intake1.set(0);
+				outtake.set(0);
 			}
 		}
 	}
